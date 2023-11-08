@@ -31,7 +31,6 @@
     "lint": "run-p lint:*",
     "lint:js": "eslint --ext .ts --ext .tsx src --fix",
     "lint:types": "tsc",
-    "lint:last-commit": "commitlint -f HEAD~1",
     "prettier": "prettier --write 'src/**/*.{js,ts,tsx}'",
     "prepare": "husky install"
   },

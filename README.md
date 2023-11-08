@@ -4,7 +4,7 @@ Test assessment showcasing a Firebase and Leaflet integration for storing geo-ma
 
 ## Screencast
 
-<https://github.com/DanylKab/creator-flow/assets/138477122/a96c7852-3c5c-4111-98df-bbea17fdcd05>
+<https://github.com/Francbocket/leaflet-firebase/assets/127740483/8fe64612-8cbd-4e21-8b17-077ff2a0e0b5>
 
 You can find deployed version at: https://vermillion-longma-8892ef.netlify.app/
 
