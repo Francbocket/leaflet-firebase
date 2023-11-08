@@ -1,0 +1,64 @@
+version: 2.1
+
+commands:
+  install_dependencies:
+    description: Install project dependencies
+    steps:
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+jobs:
+  lint:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:18.16.0
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Lint
+          command: yarn lint
+
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:18.16.0
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Build React App
+          command: yarn build
+      - save_cache:
+          key: app-build-cache-{{ .Branch }}
+          paths:
+            - ./build
+      - run:
+          name: Deploy to Netlify
+          command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - lint
+      - build:
+          requires:
+            - lint
+          filters:
+            branches:
+              only:
+                - main
+            tags:
+              only:
+                - /^v\d+\.\d+\.\d+$/
