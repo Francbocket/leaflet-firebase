@@ -1,8 +1,11 @@
 import { GeoPoint, Timestamp } from 'firebase/firestore'
 
-export type QuestMarkerType = {
+type QuestType = {
   timestamp: Timestamp
   location: GeoPoint
   nextQuest: number
-  id?: string
+}
+
+export type QuestMarkerType = QuestType & {
+  next: QuestType | null
 }

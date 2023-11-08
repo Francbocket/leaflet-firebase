@@ -23,7 +23,7 @@ function QuestsMarkersList({ loading, error, questsMarkers }: QuestsListProps) {
     }
 
     return questsMarkers.map((marker, index) => (
-      <div key={marker.id} className="flex flex-col p-1">
+      <div key={marker.nextQuest} className="flex flex-col p-1">
         <div className="flex">
           <MapPinIcon className="w-5 h-5 mr-1 mt-[1px]" />
           <div>

@@ -16,7 +16,10 @@ function LeafletMap({ questMarkers, onLeafletMapClick }: LeafletMapProps) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {questMarkers?.map((marker, index) => (
-        <Marker key={marker.id} position={[marker.location.latitude, marker.location.longitude]}>
+        <Marker
+          key={marker.nextQuest}
+          position={[marker.location.latitude, marker.location.longitude]}
+        >
           <Popup>
             <div className="flex flex-col">
               Quest #{index + 1}
